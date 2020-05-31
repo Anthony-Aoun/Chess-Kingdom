@@ -1,0 +1,51 @@
+body {
+    background-image: url("../src/multiplayer_wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;
+}
+
+body::after {
+    content:"";
+    opacity: 0.5;
+    background: rgba(0, 0, 0, 0.7);
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    position:absolute;
+    z-index: -1;
+}
+
+.topnav {
+    width: 100%;
+    overflow: auto;
+    display: block;
+    position: fixed;
+    top: 0;
+    text-align: left;
+    margin: 10px;
+  }
+
+.topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 35px;
+    text-shadow: 2px 2px 2px black;
+}
+.topnav a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media screen and (max-width: 500px) {
+    .topnav a {
+        float: none;
+        display: block;
+    }
+}
