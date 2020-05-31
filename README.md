@@ -1,2 +1,2 @@
 # CHESS-KINGDOM
-A web classic chess game
+A classic chess game coded with HTML, CSS and JS
