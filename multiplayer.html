@@ -16,15 +16,110 @@
 
             <img src="src/multiplayer_logo.png" alt="logo" style="margin: 50px;">
         </header>
-     
-        <p style = "color:white" id="0"></p>
-        <p style = "color:white" id="1"></p>
-        <p style = "color:white" id="2"></p>
-        <p style = "color:white" id="3"></p>
-        <p style = "color:white" id="4"></p>
-        <p style = "color:white" id="5"></p>
-        <p style = "color:white" id="6"></p>
-        <p style = "color:white" id="7"></p>
+        
+
+        <input type="text" placeholder="move : A1B2" id="myInput">
+        <button type="button" onclick="getInputValue();">Test</button>
+
+
+        <div class="option-nav">
+            <div id="player-nav">
+                Player: <span id="player"></span>
+            </div>
+            <div id="option" class="btn">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <span class="tooltiptext">OPTION</span>
+            </div>
+            <div id="undo-btn" class="btn">
+                <i class="fa fa-undo" aria-hidden="true"></i>
+                <span class="tooltiptext">UNDO</span>
+            </div>
+        </div>
+        
+
+        <canvas id="myCanvas" width="620" height="620" style="box-shadow: -3px 7px 20px; border:2px solid rgb(255,255,255); padding: 0; margin: 15px auto 20px auto; display: block;">
+            Your browser does not support the HTML5 canvas tag.</canvas>
+
+            <script>    
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            //transparent canvas
+            ctx.globalAlpha = 0.5;
+            ctx.fillStyle = "rgb(255,255,255)"
+            ctx.fillRect(0,0,620,620);
+
+            //black annotation
+            ctx.globalAlpha = 1;
+            ctx.font = "30px Comic Sans MS";
+            ctx.fillStyle = "rgb(0,0,0)"
+            ctx.lineWidth = 1
+            //left
+            ctx.fillText("8",6,75)
+            ctx.fillText("7",6,145)
+            ctx.fillText("6",6,215)
+            ctx.fillText("5",6,285)
+            ctx.fillText("4",6,355)
+            ctx.fillText("3",6,425)
+            ctx.fillText("2",6,495)
+            ctx.fillText("1",6,565)
+            //right
+            ctx.fillText("8",597,75)
+            ctx.fillText("7",597,145)
+            ctx.fillText("6",597,215)
+            ctx.fillText("5",597,285)
+            ctx.fillText("4",597,355)
+            ctx.fillText("3",597,425)
+            ctx.fillText("2",597,495)
+            ctx.fillText("1",597,565)
+            //down
+            ctx.fillText("A",50,615)
+            ctx.fillText("B",120,615)
+            ctx.fillText("C",190,615)
+            ctx.fillText("D",260,615)
+            ctx.fillText("E",330,615)
+            ctx.fillText("F",400,615)
+            ctx.fillText("G",470,615)
+            ctx.fillText("H",540,615)
+            //up
+            ctx.fillText("A",50,25)
+            ctx.fillText("B",120,25)
+            ctx.fillText("C",190,25)
+            ctx.fillText("D",260,25)
+            ctx.fillText("E",330,25)
+            ctx.fillText("F",400,25)
+            ctx.fillText("G",470,25)
+            ctx.fillText("H",540,25)
+            
+            var left = 30;
+            var up = 30;
+            
+            //white squares color
+            ctx.fillStyle = "rgb(255,255,255)"
+            ctx.strokeStyle = "rgb(255,255,255)"
+            
+            //horizontal lines
+            for(i=0;i<=8;i++) {
+                ctx.moveTo(0+left,70*i+up);
+                ctx.lineTo(560+left,70*i+up);
+                ctx.stroke();        
+            }
+            //vertical lines
+            for(j=0;j<=8;j++) {
+                ctx.moveTo(70*j+left,0+up);
+                ctx.lineTo(70*j+left,560+up);
+                ctx.stroke();
+            }
+            //fill white
+            for(var a=0;a<8;a++) {
+                for(var b=0; b<8;b+=2) {
+                    startX = (b+1)*70 ;
+                    if(a%2==0) startX = b*70;
+                    //(start_column, start_line, width, height)
+                    ctx.fillRect(startX + left,(a*70)+up  ,70,70);
+                    
+                }
+            }
+            </script>
         
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/defs.js"></script>
