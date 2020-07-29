@@ -77,6 +77,18 @@ body::after {
     color: rgb(255, 255, 255);
 }
 
+#check-nav {
+    display: inline-block;
+    cursor: default;
+    text-align: left;
+    margin-left: 20px;
+	margin-top: 5px;
+}
+
+#check {
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+}
 
 #undo-btn, #option {
     display: inline-block;
