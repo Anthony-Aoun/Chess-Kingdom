@@ -24,7 +24,7 @@
                 <a href="menu.html"><i class="fa fa-fw fa-arrow-left"></i></a>
             </div>
         </header>
-
+        <!--Navigation Bar-->
         <div class="option-nav">
             <div id="player-nav">
                 Turn: <span id="player"></span>
@@ -33,12 +33,12 @@
                 <span id="check"></span>
             </div>
             <div id="option" class="btn">
-                <i class="fa fa-cog" aria-hidden="true"></i>
-                <span class="tooltiptext">OPTION</span>
+                <i class="fa fa-cog" onclick="getElementById('settings').style.display='block'" aria-hidden="true"></i>
+                <span class="tooltiptext">OPTIONS</span>
             </div>
             
             <div id="undo-btn" class="btn">
-                <i class="fa fa-undo" aria-hidden="true"></i>
+                <i class="fa fa-undo" onclick="functions.undo()" aria-hidden="true"></i>
                 <span class="tooltiptext">UNDO</span>
             </div>
         </div>
@@ -49,6 +49,7 @@
 
         
         <body>
+            <!--Pawn Promotion-->
             <div class="w3-container">
                 <div id="promotion" class="w3-modal">
                 <div class="w3-modal-content w3-animate-opacity" style="max-width:325px">
@@ -56,10 +57,42 @@
                     <h2 style="text-align: center;">Make a Choice</h2>
                     </header>
                     <div class="w3-container">
-                    <input type="image" src="src/queen.png" width="70" height="70" onclick="setPromotion('queen')" >
-                    <input type="image" src="src/knight.png" width="70" height="70" onclick="setPromotion('knight')" >
-                    <input type="image" src="src/rook.png" width="70" height="70" onclick="setPromotion('rook')" >
-                    <input type="image" src="src/bishop.png" width="70" height="70" onclick="setPromotion('bishop')" >
+                        <input type="image" src="src/wqueen.png" width="70" height="70" onclick="functions.promote('queen')" >
+                        <input type="image" src="src/wknight.png" width="70" height="70" onclick="functions.promote('knight')" >
+                        <input type="image" src="src/wrook.png" width="70" height="70" onclick="functions.promote('rook')" >
+                        <input type="image" src="src/wbishop.png" width="70" height="70" onclick="functions.promote('bishop')" >
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Settings-->
+            <div class="w3-container">
+                <div id="settings" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <header class="w3-container w3-black"> 
+                        <span onclick="document.getElementById('settings').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                    <h2 style="text-align: center;">Options</h2>
+                    </header>
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Save Game</button>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="getElementById('newGame').style.display='block'; document.getElementById('settings').style.display='none'" type="submit">New Game</button>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Resign</button>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Offer Draw</button>
+                    
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Are You Sure New Game?-->
+            <div class="w3-container">
+                <div id="newGame" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <h2 style="text-align: center;">Are you sure you want to start a new game ?</h2>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="functions.newGame(); document.getElementById('newGame').style.display='none'" type="submit">Yes</button>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('newGame').style.display='none'" type="submit">No</button>
                     </div>
                 </div>
                 </div>

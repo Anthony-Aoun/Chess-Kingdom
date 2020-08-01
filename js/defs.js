@@ -507,7 +507,6 @@ class game {
         }
         //modify this.saved_moves
         this.saved_moves.push(move)
-        console.log(this.saved_moves)
         //check if the move is casteling
         if (this.board[move[0]][move[1]].status.type === "king" && move[3]-move[1] === 2) {
             this.board[move[0]][5].status.type = "rook"
@@ -533,7 +532,6 @@ class game {
         //modify this.board
         //check if the move is en passant
         if (this.board[move[0]][move[1]].status.type === "pawn" && this.board[move[2]][move[3]].status.type === "none" && move[1] !== move[3]) {
-            console.log("yes it's en passant")
             this.board[move[0]][move[3]].status.type = "none"
             this.board[move[0]][move[3]].status.color = "none"
         }
@@ -605,8 +603,8 @@ class game {
 }
 
 
-
-//FIX if the move is a pawn to last line in  playerMove
+//TEST UNDO A LOT
+//FIX color prob if the move is a pawn to last line in  playerMove 
 //game can also ends if : https://www.chess.com/article/view/how-chess-games-can-end-8-ways-explained
 //(when quiting add do you want to save the game)
 //UNDO (rounded arrow)
