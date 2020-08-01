@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>ChessKingdom</title>
+        <!--CSS MODAL LINK-->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <!--FONT AWESOME LINK-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <link href="css/multiplayer_style.css" rel="stylesheet">
         <script type="text/javascript"> if (!window.console) console = {log: function() {}}; </script>
+
         <audio id="myAudio">
             <source src="src/move.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
     </head>
+
     <body>
         <header>
             <div class="topnav" id="topnav">
@@ -30,6 +36,7 @@
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 <span class="tooltiptext">OPTION</span>
             </div>
+            
             <div id="undo-btn" class="btn">
                 <i class="fa fa-undo" aria-hidden="true"></i>
                 <span class="tooltiptext">UNDO</span>
@@ -37,10 +44,27 @@
         </div>
         
 
-        <canvas id="canvas" width="620" height="620" style="box-shadow: -3px 7px 20px; border:2px solid rgb(255,255,255); padding: 0; margin: 15px auto 20px auto; display: block;">
+        <canvas id="canvas" width="620" height="620" style="box-shadow: -3px 7px 20px; border:2px solid rgb(255,255,255); padding: 0; margin: 15px auto 20px auto; display:block;">
             Your browser does not support the HTML5 canvas tag.</canvas>
 
         
+        <body>
+            <div class="w3-container">
+                <div id="promotion" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:325px">
+                    <header class="w3-container w3-black"> 
+                    <h2 style="text-align: center;">Make a Choice</h2>
+                    </header>
+                    <div class="w3-container">
+                    <input type="image" src="src/queen.png" width="70" height="70" onclick="setPromotion('queen')" >
+                    <input type="image" src="src/knight.png" width="70" height="70" onclick="setPromotion('knight')" >
+                    <input type="image" src="src/rook.png" width="70" height="70" onclick="setPromotion('rook')" >
+                    <input type="image" src="src/bishop.png" width="70" height="70" onclick="setPromotion('bishop')" >
+                    </div>
+                </div>
+                </div>
+            </div>
+   
         <script src="js/jquery-3.4.1.min.js"></script>
         <script src="js/defs.js"></script>
         <script src="js/multiplayer.js"></script>

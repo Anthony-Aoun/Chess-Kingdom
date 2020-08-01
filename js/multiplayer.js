@@ -1,8 +1,77 @@
 var myGame = new game()
+var shapes=[]
 var sound = document.getElementById("myAudio")
 document.getElementById("player").innerHTML = myGame.turn
 
-$(function(){
+//set promotion type
+function setPromotion(type) {
+    var move = myGame.saved_moves[myGame.saved_moves.length-1]
+    //modify matrix
+    myGame.board[move[2]][move[3]].status.type = type
+    /*
+    //change the pieces in the shapes according to matrix pieces
+    for(var i=0;i<shapes.length;i++){
+        var k = shapes[i].posi[0]
+        var l = shapes[i].posi[1]
+        if (myGame.board[k][l].status.type === "king" && myGame.board[k][l].status.color ==="white") {
+            shapes[i].piece = wking
+        }
+        else if (myGame.board[k][l].status.type === "queen" && myGame.board[k][l].status.color ==="white") {
+            shapes[i].piece = wqueen
+        }
+        else if (myGame.board[k][l].status.type === "rook" && myGame.board[k][l].status.color ==="white") {
+            shapes[i].piece = wrook
+        }
+        else if (myGame.board[k][l].status.type === "bishop" && myGame.board[k][l].status.color ==="white") {
+            shapes[i].piece = wbishop
+        }
+        else if (myGame.board[k][l].status.type === "knight" && myGame.board[k][l].status.color ==="white") {
+            shapes[i].piece = wknight
+        }
+        else if (myGame.board[k][l].status.type === "pawn" && myGame.board[k][l].status.color ==="white") {
+            shapes[i].piece = wpawn
+        }
+        else if (myGame.board[k][l].status.type === "king" && myGame.board[k][l].status.color ==="black") {
+            shapes[i].piece = king
+        }
+        else if (myGame.board[k][l].status.type === "queen" && myGame.board[k][l].status.color ==="black") {
+            shapes[i].piece = queen
+        }
+        else if (myGame.board[k][l].status.type === "rook" && myGame.board[k][l].status.color ==="black") {
+            shapes[i].piece = rook
+        }
+        else if (myGame.board[k][l].status.type === "bishop" && myGame.board[k][l].status.color ==="black") {
+            shapes[i].piece = bishop
+        }
+        else if (myGame.board[k][l].status.type === "knight" && myGame.board[k][l].status.color ==="black") {
+            shapes[i].piece = knight
+        }
+        else if (myGame.board[k][l].status.type === "pawn" && myGame.board[k][l].status.color ==="black") {
+            shapes[i].piece = pawn
+        }
+        else {
+            shapes[i].piece = empty
+        }
+    }
+    //print if checked
+    var color = "white"
+    if (myGame.turn === "white") {
+        color = "black"
+    }
+    if (myGame.isChecked(myGame.board, myGame.saved_moves, color)[0]) {
+        document.getElementById("check").innerHTML = "Check!"
+    }
+    else {
+        document.getElementById("check").innerHTML = ""
+    }
+    //print new board
+    for(var i=0;i<shapes.length;i++){
+        draw(shapes[i], "white", "white")
+    }*/
+    //close CSS modal
+    document.getElementById('promotion').style.display='none'
+}
+
 //define pieces
 var empty = new Image()
 
@@ -32,6 +101,7 @@ knight.src = "src/knight.png"
 var pawn = new Image()
 pawn.src = "src/pawn.png"
 
+$(function(){
 window.onload = function() {
     //canvas variables
     var canvas=document.getElementById("canvas");
@@ -481,7 +551,6 @@ window.onload = function() {
     }
 
     //save squares in a shapes[] array
-    var shapes=[];
     shapes.push(A8);
     shapes.push(B8);
     shapes.push(C8);
@@ -582,7 +651,7 @@ window.onload = function() {
             ctx.drawImage(shape.piece, shape.points[0].x, shape.points[0].y, 70, 70);
         }   
     }
-
+    
     //stytle
     ctx.fillStyle = "rgb(255,255,255)"
     ctx.strokeStyle = "rgb(255,255,255)"
@@ -724,7 +793,7 @@ window.onload = function() {
                         else {
                             document.getElementById("check").innerHTML = ""
                         }
-                        
+                        //
                         //print eaten pieces
                         //
                         //play sound

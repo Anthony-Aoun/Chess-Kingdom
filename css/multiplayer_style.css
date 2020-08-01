@@ -53,11 +53,13 @@ body::after {
 
 
 
+
 .option-nav {
     height: 20px;
     width: 500px;
     font-size: 30px;
-    margin: 0 auto;
+    font-family: cursive;
+    margin: 10px auto;
     line-height: 15px;
     color: white;
     text-shadow: 2px 2px 2px black;
@@ -67,12 +69,13 @@ body::after {
     display: inline-block;
     cursor: default;
     float: left;
-    width: 200px;
+    width: 150px;
     text-align: left;
 	margin-top: 5px;
 }
 
 #player {
+    font-family: cursive;
     font-size: 32px;
     color: rgb(255, 255, 255);
 }
@@ -81,11 +84,12 @@ body::after {
     display: inline-block;
     cursor: default;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 10px;
 	margin-top: 5px;
 }
 
 #check {
+    font-family: cursive;
     font-size: 32px;
     color: rgb(255, 255, 255);
 }
@@ -95,7 +99,8 @@ body::after {
     float: right;
     cursor: pointer;
     margin-left: 50px;
-	position: relative;
+    position: relative;
+    
 }
 
 .btn .tooltiptext {
@@ -115,6 +120,7 @@ body::after {
     top: 120%;
     left: 50%;
     margin-left: -50px;
+    
 }
 
 #undo-btn .tooltiptext {
@@ -131,9 +137,12 @@ body::after {
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent rgb(255, 255, 255) transparent;
+
 }
 
 .btn:hover .tooltiptext {
     visibility: visible;
     color: rgba(255, 255, 255, 0.7);
 }
+
+

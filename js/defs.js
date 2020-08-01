@@ -524,9 +524,12 @@ class game {
             this.board[move[0]][0].status.color = "none"
         }
         //check if the move is a pawn to last line
-        //////////////
-        ///  FILL  ///
-        //////////////
+        if (this.board[move[0]][move[1]].status.type === "pawn" && (this.board[move[0]][move[1]].status.color === "white" && move[2] === 0) || (this.board[move[0]][move[1]].status.color === "black" && move[2] === 7)) {
+            //pops up to css modal
+            document.getElementById('promotion').style.display='block'
+        }
+     
+
         //modify this.board
         //check if the move is en passant
         if (this.board[move[0]][move[1]].status.type === "pawn" && this.board[move[2]][move[3]].status.type === "none" && move[1] !== move[3]) {
@@ -534,6 +537,7 @@ class game {
             this.board[move[0]][move[3]].status.type = "none"
             this.board[move[0]][move[3]].status.color = "none"
         }
+
         var moving_piece = new piece(this.board[move[0]][move[1]].status.type, this.board[move[0]][move[1]].status.color)
         moving_piece.moved = true
         this.board[move[2]][move[3]].status = moving_piece
@@ -600,7 +604,9 @@ class game {
     }
 }
 
-//check if the move is a pawn to last line in  playerMove
+
+
+//FIX if the move is a pawn to last line in  playerMove
 //game can also ends if : https://www.chess.com/article/view/how-chess-games-can-end-8-ways-explained
 //(when quiting add do you want to save the game)
 //UNDO (rounded arrow)
@@ -608,3 +614,7 @@ class game {
 //add EATEN pieces output 
 //change TURN output (white -> image of white king)
 //add pop-up window YOU WON by ... when game is over
+
+//long term :
+// > when resize or scroll stay being able to click
+// > flip board on black turn
