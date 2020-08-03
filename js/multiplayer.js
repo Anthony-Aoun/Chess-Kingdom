@@ -1,7 +1,9 @@
 var myGame = new game()
 var shapes=[]
-var sound = document.getElementById("myAudio")
-document.getElementById("player").innerHTML = myGame.turn
+var sound = document.getElementById("moveSound")
+var win = document.getElementById("winSound")
+var draw = document.getElementById("drawSound")
+document.getElementById("player").src = "src/white_dot.png"
 
 var functions = {}
 
@@ -632,7 +634,13 @@ window.onload = function() {
             }
         }
          //print turn
-         document.getElementById("player").innerHTML = myGame.turn
+         if (myGame.turn === "white") {
+            document.getElementById("player").src = "src/white_dot.png"
+         }
+         else {
+            document.getElementById("player").src = "src/black_dot.png"
+         }
+         
                 
          //print if checked
          if (myGame.isChecked(myGame.board, myGame.saved_moves, myGame.turn)[0]) {
@@ -641,6 +649,16 @@ window.onload = function() {
          else {
              document.getElementById("check").innerHTML = ""
          }
+
+         //end-game?
+         var result = myGame.endGame(myGame.board, myGame.saved_moves)
+         if (result[0] !== "none") {
+             //stop loop
+             myGame.gameOver = true
+             //output the end-game method
+             document.getElementById("check").innerHTML = result[1]
+         }
+
          //
          //print eaten pieces
          //
@@ -648,9 +666,35 @@ window.onload = function() {
         for(var i=0;i<shapes.length;i++){
             functions.draw(shapes[i], "white", "white")
         }
+        //check if game ended
+        if (myGame.gameOver) {
+            if (myGame.turn === "black") {
+                document.getElementById('wgameOver').style.display='block'
+                win.play()
+            }
+            else{
+                document.getElementById('gameOver').style.display='block'
+                win.play()
+            }
+        }
     },
 
-    promote : function promote(type) {
+    //promote white pawn
+    wpromote : function wpromote(type) {
+        var move = myGame.saved_moves[myGame.saved_moves.length-1]
+        //modify board
+        myGame.board[move[2]][move[3]].status.type = type
+        //modify last board in saved_board
+        myGame.saved_boards[myGame.saved_boards.length - 1][move[2]][move[3]].status.type = type
+        //close CSS modal
+        document.getElementById('wpromotion').style.display='none'
+        //print board
+        functions.printBoard()
+        
+    },
+
+    //promote black pawn
+    promote : function wpromote(type) {
         var move = myGame.saved_moves[myGame.saved_moves.length-1]
         //modify board
         myGame.board[move[2]][move[3]].status.type = type
@@ -665,6 +709,7 @@ window.onload = function() {
 
     //function to UNDO move
     undo : function undo() {   
+        myGame.gameOver = false
         if (myGame.saved_boards.length === 1) {
             console.log("Can't UNDO anymore")
         }
@@ -691,6 +736,7 @@ window.onload = function() {
         myGame.saved_moves = []
         myGame.saved_eaten = []
         myGame.turn = "white"
+        myGame.gameOver = false
         //transform board into a matrix of squares
         for (let i=0; i<8; i++) {
             myGame.board[i] = new Array(8)
@@ -734,6 +780,26 @@ window.onload = function() {
         //print board
         functions.printBoard()
     },
+
+    //output end-game after resign
+    resign : function resign() {
+        if (myGame.turn === "black") {
+            document.getElementById('wgameOver').style.display='block'
+            win.play()
+        }
+        else{
+            document.getElementById('gameOver').style.display='block'
+            win.play()
+        } 
+        myGame.gameOver = true
+    },
+
+    //output end-game after draw
+    drawGame : function drawGame() {
+        document.getElementById('draw').style.display='block'
+        draw.play()
+        myGame.gameOver = true
+    },
 }
     
     //stytle
@@ -769,8 +835,12 @@ window.onload = function() {
                 //THE MOVE HAPPENS HERE//
                 /////////////////////////
 
+                //if game is over, no move is possible
+                if (myGame.gameOver) {
+                    console.log("Can't move, game is over")
+                }
                 //First click
-                if (clicked === false) {  
+                else if (clicked === false && !myGame.gameOver) {  
                     if (myGame.board[shape.posi[0]][shape.posi[1]].status.color === myGame.turn) {
                         //mark clicked square with black stroke
                         functions.draw(shape, "black", "white")
@@ -870,14 +940,28 @@ window.onload = function() {
                             }
                             
                             //print new turn
-                            document.getElementById("player").innerHTML = myGame.turn
-                
+                            if (myGame.turn === "white") {
+                                document.getElementById("player").src = "src/white_dot.png"
+                             }
+                             else {
+                                document.getElementById("player").src = "src/black_dot.png"
+                             }
+                            
                             //print if checked
                             if (myGame.isChecked(myGame.board, myGame.saved_moves, myGame.turn)[0]) {
                                 document.getElementById("check").innerHTML = "Check!"
                             }
                             else {
                                 document.getElementById("check").innerHTML = ""
+                            }
+
+                            //end-game?
+                            var result = myGame.endGame(myGame.board, myGame.saved_moves)
+                            if (result[0] !== "none") {
+                                //stop loop
+                                myGame.gameOver = true
+                                //output the end-game method
+                                document.getElementById("check").innerHTML = result[1]
                             }
                             //
                             //print eaten pieces
@@ -888,6 +972,17 @@ window.onload = function() {
                         //print new board
                         for(var i=0;i<shapes.length;i++){
                             functions.draw(shapes[i], "white", "white")
+                        }
+                        //check if game ended
+                        if (myGame.gameOver) {
+                            if (myGame.turn === "black") {
+                                document.getElementById('wgameOver').style.display='block'
+                                win.play()
+                            }
+                            else{
+                                document.getElementById('gameOver').style.display='block'
+                                win.play()
+                            }
                         }
                         //back to First click
                         clicked_square = none

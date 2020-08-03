@@ -39,6 +39,7 @@ class game {
     this.saved_moves = []
     this.saved_eaten = []
     this.turn = "white"
+    this.gameOver = false
     
     //transform board into a matrix of squares
     for (let i=0; i<8; i++) {
@@ -523,9 +524,16 @@ class game {
             this.board[move[0]][0].status.color = "none"
         }
         //check if the move is a pawn to last line
-        if (this.board[move[0]][move[1]].status.type === "pawn" && (this.board[move[0]][move[1]].status.color === "white" && move[2] === 0) || (this.board[move[0]][move[1]].status.color === "black" && move[2] === 7)) {
-            //pops up to css modal
-            document.getElementById('promotion').style.display='block'
+        if (this.board[move[0]][move[1]].status.type === "pawn" && (this.board[move[0]][move[1]].status.color === "white" && move[2] === 0 || (this.board[move[0]][move[1]].status.color === "black" && move[2] === 7))) {
+            //pops up to css modal depending on color
+            if (this.turn === "white") {
+                document.getElementById('wpromotion').style.display='block'
+            }
+            else {
+                document.getElementById('promotion').style.display='block'
+            }
+            
+
         }
      
 
@@ -555,10 +563,10 @@ class game {
 
     //see if 'color' is checkmated
     checkmate(board, saved_moves, color) {
-        if (!(this.isChecked(board, saved_moves, color))) {
+        if (this.isChecked(board, saved_moves, color)[0] === false) {
             return false
         }
-        if (this.possibleMoves(board, saved_moves, color) === []) {
+        if (isEqual(this.possibleMoves(board, saved_moves, color), [])) {
             return true
         }
         else {
@@ -568,10 +576,10 @@ class game {
 
     //see if 'color' is stalemated
     stalemate(board, saved_moves, color) {
-        if (this.isChecked(board, saved_moves, color)) {
+        if (this.isChecked(board, saved_moves, color)[0]) {
             return false
         }
-        if (this.possibleMoves(board, saved_moves, color) === []) {
+        if (isEqual(this.possibleMoves(board, saved_moves, color), [])) {
             return true
         }
         else {
@@ -583,17 +591,17 @@ class game {
     endGame(board, saved_moves) {
         //white wins?
         if (this.checkmate(board, saved_moves, "black")) {
-            return ["white", "checkmate"]
+            return ["white", "Checkmate!"]
         }
         else if (this.stalemate(board, saved_moves, "black")) {
-            return ["white", "stalemate"]
+            return ["white", "Stalemate!"]
         }
         //black wins?
         else if (this.checkmate(board, saved_moves, "white")) {
-            return ["black", "checkmate"]
+            return ["black", "Checkmate!"]
         }
         else if (this.stalemate(board, saved_moves, "white")) {
-            return ["black", "stalemate"]
+            return ["black", "Stalemate!"]
         }
         //no one wins
         else {
@@ -603,16 +611,11 @@ class game {
 }
 
 
-//TEST UNDO A LOT
-//FIX color prob if the move is a pawn to last line in  playerMove 
 //game can also ends if : https://www.chess.com/article/view/how-chess-games-can-end-8-ways-explained
-//(when quiting add do you want to save the game)
-//UNDO (rounded arrow)
-//OPTION (clock settings) : save game, new game, win, resign, draw
 //add EATEN pieces output 
-//change TURN output (white -> image of white king)
-//add pop-up window YOU WON by ... when game is over
 
 //long term :
 // > when resize or scroll stay being able to click
 // > flip board on black turn
+// > save game
+// > when quiting add do you want to save the game
