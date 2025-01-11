@@ -91,7 +91,7 @@ The main game logic is handled in `multiplayer.js`. The following are key functi
 - **W3.CSS:** Provides modal and button styling.
 - **Font Awesome:** Used for icons (settings and undo).
 
-## Known Limitation
+## Known Limitations
 
 - The game assumes both players are sharing the same device/browser.
 - No network-based multiplayer functionality (local play only).
