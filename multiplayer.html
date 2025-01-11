@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ChessKingdom</title>
+        <!--CSS MODAL LINK-->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <!--FONT AWESOME LINK-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link href="css/multiplayer_style.css" rel="stylesheet">
+        <script type="text/javascript"> if (!window.console) console = {log: function() {}}; </script>
+
+        <audio id="moveSound">
+            <source src="src/move.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="winSound">
+            <source src="src/win.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="drawSound">
+            <source src="src/draw.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </head>
+
+    <body>
+        <header>
+            <div class="topnav" id="topnav">
+                <a href="menu.html"><i class="fa fa-fw fa-arrow-left"></i></a>
+            </div>
+        </header>
+        <!--Navigation Bar-->
+        <div class="option-nav">
+            <div id="player-nav">
+                Turn: <img id="player" width="25" height="25" src="">
+            </div>
+            <div id="check-nav">
+                <span id="check"></span>
+            </div>
+            <div id="option" class="btn">
+                <i class="fa fa-cog" onclick="getElementById('settings').style.display='block'" aria-hidden="true"></i>
+                <span class="tooltiptext">OPTIONS</span>
+            </div>
+            
+            <div id="undo-btn" class="btn">
+                <i class="fa fa-undo" onclick="functions.undo()" aria-hidden="true"></i>
+                <span class="tooltiptext">UNDO</span>
+            </div>
+        </div>
+        
+
+        <canvas id="canvas" width="620" height="620" style="box-shadow: -3px 7px 20px; border:2px solid rgb(255,255,255); padding: 0; margin: 15px auto 20px auto; display:block;">
+            Your browser does not support the HTML5 canvas tag.</canvas>
+
+        
+        <body>
+            <!--White Pawn Promotion-->
+            <div class="w3-container">
+                <div id="wpromotion" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:325px">
+                    <header class="w3-container w3-black"> 
+                    <h2 style="text-align: center;">Make a Choice</h2>
+                    </header>
+                    <div class="w3-container">
+                        <input type="image" src="src/wqueen.png" width="70" height="70" onclick="functions.wpromote('queen')" >
+                        <input type="image" src="src/wknight.png" width="70" height="70" onclick="functions.wpromote('knight')" >
+                        <input type="image" src="src/wrook.png" width="70" height="70" onclick="functions.wpromote('rook')" >
+                        <input type="image" src="src/wbishop.png" width="70" height="70" onclick="functions.wpromote('bishop')" >
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Black Pawn Promotion-->
+            <div class="w3-container">
+                <div id="promotion" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:325px">
+                    <header class="w3-container w3-black"> 
+                    <h2 style="text-align: center;">Make a Choice</h2>
+                    </header>
+                    <div class="w3-container">
+                        <input type="image" src="src/queen.png" width="70" height="70" onclick="functions.promote('queen')" >
+                        <input type="image" src="src/knight.png" width="70" height="70" onclick="functions.promote('knight')" >
+                        <input type="image" src="src/rook.png" width="70" height="70" onclick="functions.promote('rook')" >
+                        <input type="image" src="src/bishop.png" width="70" height="70" onclick="functions.promote('bishop')" >
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Settings-->
+            <div class="w3-container">
+                <div id="settings" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <header class="w3-container w3-black"> 
+                        <span onclick="document.getElementById('settings').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close">&times;</span>
+                    <h2 style="text-align: center;">Options</h2>
+                    </header>
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="getElementById('newGame').style.display='block'; document.getElementById('settings').style.display='none'" type="submit">New Game</button>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="getElementById('askResign').style.display='block'; document.getElementById('settings').style.display='none'" type="submit">Resign</button>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="getElementById('askDraw').style.display='block'; document.getElementById('settings').style.display='none'" type="submit">Offer Draw</button>
+                    
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Are You Sure New Game?-->
+            <div class="w3-container">
+                <div id="newGame" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <h2 style="text-align: center;">Are you sure you want to start a new game?</h2>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="functions.newGame(); document.getElementById('newGame').style.display='none'" type="submit">Yes</button>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('newGame').style.display='none'" type="submit">No</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Do you accept resignation?-->
+            <div class="w3-container">
+                <div id="askResign" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <h2 style="text-align: center;">Do you accept your opponent resignation?</h2>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="functions.resign(); document.getElementById('askResign').style.display='none'" type="submit">Yes</button>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('askResign').style.display='none'" type="submit">No</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        
+            <!--Do you accept draw?-->
+            <div class="w3-container">
+                <div id="askDraw" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <h2 style="text-align: center;">Do you accept the draw?</h2>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" onclick="functions.drawGame(); document.getElementById('askDraw').style.display='none'" type="submit">Yes</button>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('askDraw').style.display='none'" type="submit">No</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Game Over white wins-->
+            <div class="w3-container">
+                <div id="wgameOver" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <header class="w3-container"> 
+                        <span onclick="document.getElementById('wgameOver').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close">&times;</span>
+                    </header>
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <img src="src/wking.png" alt="wking" style="width:15%" class="w3 w3-margin-top">
+                        <h2 style="text-align: center">White Player Wins !</h2>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('wgameOver').style.display='none'" type="submit">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Game Over black wins-->
+            <div class="w3-container">
+                <div id="gameOver" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <header class="w3-container"> 
+                        <span onclick="document.getElementById('gameOver').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close">&times;</span>
+                    </header>
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <img src="src/king.png" alt="king" style="width:15%" class="w3 w3-margin-top">
+                        <h2 style="text-align: center">Black Player Wins !</h2>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('gameOver').style.display='none'" type="submit">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--Game Over Draw-->
+            <div class="w3-container">
+                <div id="draw" class="w3-modal">
+                <div class="w3-modal-content w3-animate-opacity" style="max-width:600px">
+                    <header class="w3-container"> 
+                        <span onclick="document.getElementById('draw').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close">&times;</span>
+                    </header>
+                    <div class="w3-container" style="text-align: center; font-size: 20px;">
+                        <img src="src/draw.png" alt="draw" style="width:20%" class="w3 w3-margin-top">
+                        <h2 style="text-align: center">Draw !</h2>
+                        <button class="w3-button w3-block w3-red w3-section w3-padding" onclick="document.getElementById('draw').style.display='none'" type="submit">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+   
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/defs.js"></script>
+        <script src="js/multiplayer.js"></script>
+    </body>
+</html>

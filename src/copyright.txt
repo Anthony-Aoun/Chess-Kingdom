@@ -1,0 +1,5 @@
+menu_music.mp3 : Epic Celtic Battle Music - Battle For Camelot (Tartalo Music)
+menu_wallpaper.jpg : http://getwallpapers.com/wallpaper/full/1/8/4/1016464-chess-wallpaper-1920x1200-ipad.jpg#.XnF-OU1IuRA.link
+multiplayer_wallpaper.jpg : http://getwallpapers.com/collection/medieval-knight-wallpaper
+chess pieces images : https://commons.wikimedia.org/
+javascript board : jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license

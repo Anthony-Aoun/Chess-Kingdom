@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ChessKingdom</title>
+
+    <!-- Link to external CSS for styling -->
+    <link href="css/menu_style.css" rel="stylesheet">
+
+    <!-- Prevent console errors in older browsers -->
+    <script type="text/javascript">
+        if (!window.console) console = { log: function () {} };
+    </script>
+</head>
+
+<body>
+    <!-- Header with the game logo -->
+    <header>
+        <img src="src/menu_logo.png" alt="logo" style="margin: 100px;">
+    </header>
+
+    <!-- START button that disappears when clicked -->
+    <div id="disappears">
+        <button class="disappears" onclick="Start()" style="vertical-align: middle;"><span>START</span></button>
+    </div>
+
+    <!-- Background music that plays when START is clicked -->
+    <audio id="myAudio" loop>
+        <source src="src/menu_music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Game modes that appear after clicking START -->
+    <div id="appears" style="display: none;">
+        <button class="appears" onclick="window.location.href='multiplayer.html';">MULTIPLAYER</button><br />
+    </div>
+
+    <!-- Script to handle START button behavior -->
+    <script>
+        var p = document.getElementById("myAudio");
+
+        function Start() {
+            p.play();  // Start background music
+            document.getElementById("disappears").innerHTML = "<br />";  // Hide START button
+            document.getElementById("appears").style.display = "block";   // Show game modes
+        }
+    </script>
+
+    <!-- jQuery library for potential use in future features -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+</body>
+
+</html>
