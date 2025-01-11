@@ -105,4 +105,4 @@ This project is licensed under the MIT License.
 
 This project is open-source and free to use for educational purpouses only.
 
-**Enjoy playing ChessKingdom!**
+**Enjoy playing Chess Kingdom!**
